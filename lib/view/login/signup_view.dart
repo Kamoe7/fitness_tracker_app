@@ -1,3 +1,4 @@
+import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
 import 'package:fitness_tracker/view/login/loginView.dart';
@@ -13,6 +14,35 @@ class SignupView extends StatefulWidget {
 }
 
 class _SignupViewState extends State<SignupView> {
+
+  //auth service
+  final authService=AuthService();
+  final _emilController=TextEditingController();
+  final _passwordController=TextEditingController();
+  final _confirmPassController=TextEditingController();
+
+  //attempt signup
+  void signUp() async{
+    final email=_emilController.text;
+    final password=_passwordController.text;
+    final confirmPass=_confirmPassController.text;
+
+    if(password!=confirmPass){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Password don't match")));
+    }
+
+    try{
+      await authService.signUpWithEmailPassword(email, password);
+    }catch(e){
+      if(mounted){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Error: $e")));
+    }}
+
+
+
+  }
+
+
   get controller => null;
   bool isCheck=false;
   bool _obscureText=false;
@@ -59,11 +89,11 @@ class _SignupViewState extends State<SignupView> {
                 SizedBox(
                   height: media.width * 0.05,
                 ),
-                RoundTextfield(controller: controller, hintText: "Email", icon: "assets/img/Message.png"),
+                RoundTextfield(controller: _emilController, hintText: "Email", icon: "assets/img/Message.png"),
                 SizedBox(
                   height: media.width * 0.05,
                 ),
-                RoundTextfield(controller: controller, hintText: "Password", icon: "assets/img/Lock.png",obscureText: _obscureText,
+                RoundTextfield(controller: _passwordController, hintText: "Password", icon: "assets/img/Lock.png",obscureText: _obscureText,
                   rightIcon:TextButton(onPressed: _istogglePasswordVisibility, child:Container(alignment: Alignment.center,width: 20,height: 20,child: Image.asset("assets/img/Hide-Password.png",width: 20,height: 20,fit: BoxFit.contain,),)),),
                 SizedBox(
                   height: media.width * 0.05,
@@ -84,7 +114,7 @@ class _SignupViewState extends State<SignupView> {
                   ],
                 ),
                 SizedBox(height: media.width*0.4,),
-                RoundGradientButton(title: 'Register', onPressed: (){}),
+                RoundGradientButton(title: 'Register', onPressed: signUp),
                 SizedBox(height: media.width*0.04),
 
                 Row(

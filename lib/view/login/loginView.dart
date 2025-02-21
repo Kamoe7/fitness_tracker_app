@@ -1,6 +1,6 @@
+import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
-import 'package:fitness_tracker/view/login/CompleteProfileView.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/color_extension.dart';
@@ -13,6 +13,31 @@ class Loginview extends StatefulWidget {
 }
 
 class _LoginviewState extends State<Loginview> {
+  //get auth service
+  final authService=AuthService();
+
+  //text controllers
+  final _emailController=TextEditingController();
+  final _passwordController=TextEditingController();
+
+  //login button pressed
+  void login() async{
+    //prepare data
+    final email=_emailController.text;
+    final password=_passwordController.text;
+
+    //attempt login
+    try{
+      await authService.signInWithEmailPassword(email, password);
+    }
+
+    catch(e){
+      if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error: $e")));
+      }
+    }
+  }
+
   bool isCheck=false;
   void _isPasswordVisibility(){
     setState(() {
@@ -36,18 +61,23 @@ class _LoginviewState extends State<Loginview> {
                       Text("Hey there",style: TextStyle(fontWeight:FontWeight.w600,fontSize: 20),),
                         Text("Welcome Back",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
                       SizedBox(height: media.width*0.05,),
-                      RoundTextfield(hintText: "Email", icon: "assets/img/Message.png"),
+                      RoundTextfield(
+                        controller: _emailController,
+                          hintText: "Email", icon: "assets/img/Message.png"),
                       SizedBox(height: media.width*0.05,),
-                      RoundTextfield(hintText: "Password", icon: "assets/img/Lock.png",obscureText:isCheck,rightIcon: TextButton(onPressed: _isPasswordVisibility, child: Container(height: 20,width: 20,alignment:Alignment.center, child: Image.asset("assets/img/Hide-Password.png",fit: BoxFit.contain,),)),),
+                      RoundTextfield(
+                        controller: _passwordController,
+                        hintText: "Password", icon: "assets/img/Lock.png",obscureText:isCheck,rightIcon: TextButton(onPressed: _isPasswordVisibility, child: Container(height: 20,width: 20,alignment:Alignment.center, child: Image.asset("assets/img/Hide-Password.png",fit: BoxFit.contain,),)),),
                             SizedBox(height: media.width*0.05),
                       TextButton(onPressed: (){}, child: Text("Forget your password?",style: TextStyle(color: TColor.gray,fontSize: 15,decoration: TextDecoration.underline),)),
 
 
 
                       Spacer(),
-                      RoundGradientButton(title: "Login", onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CompleteProfileView()));
-                      }),
+                      RoundGradientButton(title: "Login", onPressed:
+                          login
+                        //  (){Navigator.push(context, MaterialPageRoute(builder: (context)=>CompleteProfileView()));}
+                      ),
                       SizedBox(height: media.width*0.04,),
                       Row(
                         children: [

@@ -1,3 +1,4 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:fitness_tracker/view/profile/height_weight_Age_views.dart';
 import 'package:fitness_tracker/view/profile/setting_row.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  bool positive=false;
 
   List accountArr = [
     {"image": "assets/img/p_personal.png", "name": "Personal Data", "tag": "1"},
@@ -151,6 +153,69 @@ class _ProfileViewState extends State<ProfileView> {
                               
                             ),
                             SizedBox(height: 8,),
+                            SizedBox(height: 8,),
+                            SizedBox(height: 30,
+                            child: Row(
+                              children: [
+                                Image.asset("assets/img/p_notification.png",
+                                  height: 15,width: 15,fit: BoxFit.contain,
+                                ),
+                                SizedBox(width: 15,),
+                                Expanded(child: Text("Pop-up Notification",
+                                  style: TextStyle(
+                                      color: TColor.black,
+                                      fontSize: 12),)),
+                            CustomAnimatedToggleSwitch<bool>(
+                                current: positive,
+                                values: [false,true],
+                                indicatorSize: Size.square(30.0),
+                                animationDuration: Duration(milliseconds: 200),
+                                animationCurve: Curves.linear,
+                                onChanged: (b)=>setState(() =>positive=b),
+                                iconBuilder: (context,local,global){
+                                  return SizedBox();
+                                },
+
+                              onTap: (b) => setState(() => positive = !positive),
+                              iconsTappable: false,
+                              wrapperBuilder: (context,global,child){
+                                  return Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Positioned(
+                                        left: 10,
+                                        right: 10,
+                                        height: 30,
+                                        child: DecoratedBox(decoration: BoxDecoration(
+                                          gradient: LinearGradient(colors: TColor.secondaryG),
+                                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                                        )),
+                                      ),child
+                                    ],
+                                  );
+                              },
+                              foregroundIndicatorBuilder: (context,global){
+                                  return SizedBox.fromSize(
+                                    size: Size(10, 10),
+                                    child: DecoratedBox(decoration:BoxDecoration(
+                                      color: TColor.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                                      boxShadow:  [
+                                        BoxShadow(
+                                        color:Colors.black38,
+                                        spreadRadius:0.05,
+                                        blurRadius:1.1,
+                                        offset:Offset(0.0,0.8)
+                                        )]
+                                    )),
+                                  );
+                              },
+
+                            ),
+                              ],
+                            ),
+                            ),
+
 
 
                             

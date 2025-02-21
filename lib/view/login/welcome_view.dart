@@ -1,5 +1,4 @@
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
-import 'package:fitness_tracker/view/home/home_view.dart';
 import 'package:fitness_tracker/view/main_tab/main_tab_view.dart';
 import 'package:flutter/material.dart';
 
