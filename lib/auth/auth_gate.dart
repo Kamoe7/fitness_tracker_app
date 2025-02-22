@@ -28,10 +28,6 @@ class AuthGate extends StatelessWidget {
           }else{
             return Loginview();
           }
-
-
-
-
         });
   }
 }

@@ -29,6 +29,7 @@ class _LoginviewState extends State<Loginview> {
     //attempt login
     try{
       await authService.signInWithEmailPassword(email, password);
+
     }
 
     catch(e){

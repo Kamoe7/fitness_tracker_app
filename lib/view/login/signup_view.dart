@@ -19,17 +19,16 @@ class _SignupViewState extends State<SignupView> {
   final authService=AuthService();
   final _emilController=TextEditingController();
   final _passwordController=TextEditingController();
-  final _confirmPassController=TextEditingController();
+  //final _confirmPassController=TextEditingController();
 
   //attempt signup
   void signUp() async{
     final email=_emilController.text;
     final password=_passwordController.text;
-    final confirmPass=_confirmPassController.text;
+    //final confirmPass=_confirmPassController.text;
 
-    if(password!=confirmPass){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Password don't match")));
-    }
+   // if(password!=confirmPass){
+    //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Password don't match")));}
 
     try{
       await authService.signUpWithEmailPassword(email, password);
