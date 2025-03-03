@@ -1,7 +1,9 @@
 import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
+import 'package:fitness_tracker/view/login/CompleteProfileView.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../common/color_extension.dart';
 
@@ -29,6 +31,18 @@ class _LoginviewState extends State<Loginview> {
     //attempt login
     try{
       await authService.signInWithEmailPassword(email, password);
+      print("✅ Login successful");
+      //fetch the session manually
+      final session=Supabase.instance.client.auth.currentSession;
+      print('current Session: $session');
+
+      if(session!=null){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>CompleteProfileView()));
+      }
+      else{
+        print("no session after login");
+      }
+
 
     }
 

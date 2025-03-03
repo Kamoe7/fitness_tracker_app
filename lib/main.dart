@@ -1,4 +1,6 @@
 import 'package:fitness_tracker/common/color_extension.dart';
+import 'package:fitness_tracker/view/home/home_view.dart';
+import 'package:fitness_tracker/view/home/notification_view.dart';
 import 'package:fitness_tracker/view/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

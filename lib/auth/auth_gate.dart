@@ -14,6 +14,7 @@ class AuthGate extends StatelessWidget {
 
         //build appropriate page based
         builder: (context,snapshot){
+          print("Stream Triggered: ${snapshot.connectionState}"); // Debugging
           //loading
           if(snapshot.connectionState==ConnectionState.waiting){
             return Scaffold(
@@ -21,12 +22,16 @@ class AuthGate extends StatelessWidget {
             );
           }
 
-          final session= snapshot.hasData? snapshot.data!.session:null;
+          final session = snapshot.data?.session ?? Supabase.instance.client.auth.currentSession;
+          print("Auth State Change - Session: $session"); // Debugging
+          //final session= snapshot.hasData? snapshot.data!.session:null;
 
           if(session!=null){
+            //print("User logged in");
             return CompleteProfileView();
           }else{
             return Loginview();
+            //print("Login failed");
           }
         });
   }

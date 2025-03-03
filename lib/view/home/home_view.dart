@@ -1,6 +1,8 @@
 import 'package:dotted_dashed_line/dotted_dashed_line.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/workout_view.dart';
+import 'package:fitness_tracker/view/home/activity_tracker_view.dart';
+import 'package:fitness_tracker/view/home/notification_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_animation_progress_bar/simple_animation_progress_bar.dart';
@@ -126,7 +128,9 @@ class _HomeViewState extends State<HomeView> {
                     Text("Sagar Susling",style: TextStyle(color: TColor.black,fontSize: 20,fontWeight: FontWeight.w700),)
                   ],
                 ),
-                IconButton(onPressed: (){}, icon: Image.asset("assets/img/Notification-Icon.png",height: 25,width: 25,fit: BoxFit.fitHeight,))
+                IconButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationView()));
+                }, icon: Image.asset("assets/img/Notification-Icon.png",height: 25,width: 25,fit: BoxFit.fitHeight,))
               ],
             ),
             SizedBox(height: media.width*0.05,),
@@ -207,7 +211,9 @@ class _HomeViewState extends State<HomeView> {
                   SizedBox(
                     height: 25,
                     width: 75,
-                    child: RoundGradientButton(title: "Check", onPressed: (){},fontWeight: FontWeight.w400,fontSize: 12,type: RoundButtonType.bgGradient,),
+                    child: RoundGradientButton(title: "Check", onPressed: (){
+                      Navigator.push(context,MaterialPageRoute(builder:(context)=>ActivityTrackerView()) );
+                    },fontWeight: FontWeight.w400,fontSize: 12,type: RoundButtonType.bgGradient,),
                   )
                 ],
                 
