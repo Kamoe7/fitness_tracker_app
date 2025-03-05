@@ -1,20 +1,22 @@
 import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
+import 'package:fitness_tracker/riverpod/provider.dart';
 import 'package:fitness_tracker/view/login/CompleteProfileView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../common/color_extension.dart';
 
-class Loginview extends StatefulWidget {
+class Loginview extends ConsumerStatefulWidget {
   const Loginview({super.key});
 
   @override
-  State<Loginview> createState() => _LoginviewState();
+  ConsumerState<Loginview> createState() => _LoginviewState();
 }
 
-class _LoginviewState extends State<Loginview> {
+class _LoginviewState extends ConsumerState<Loginview> {
   //get auth service
   final authService=AuthService();
 
@@ -30,8 +32,31 @@ class _LoginviewState extends State<Loginview> {
 
     //attempt login
     try{
-      await authService.signInWithEmailPassword(email, password);
+      final response = await authService.signInWithEmailPassword(email, password);
+
+      final user=response.user;
+      final userId=user?.id;
+
+      if(userId != null){
+
+        //Fetch user data from supabase profiles table
+        final data=await Supabase.instance.client
+            .from('profiles')
+            .select()
+            .eq('id', userId)
+            .single();
+
+        //store in riverpod
+        ref.read(userProvider.notifier).updateUser(username: data['username'], lastName: data['lastname']);
+
+
+        print("user data loaded sucessfully");
+
+      }
+
       print("✅ Login successful");
+
+
       //fetch the session manually
       final session=Supabase.instance.client.auth.currentSession;
       print('current Session: $session');

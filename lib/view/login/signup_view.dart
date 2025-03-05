@@ -1,28 +1,36 @@
 import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
+import 'package:fitness_tracker/riverpod/provider.dart';
+import 'package:fitness_tracker/view/home/home_view.dart';
 import 'package:fitness_tracker/view/login/loginView.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker/common/color_extension.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 
-class SignupView extends StatefulWidget {
+class SignupView extends ConsumerStatefulWidget {
   const SignupView({super.key});
 
   @override
-  State<SignupView> createState() => _SignupViewState();
+  ConsumerState<SignupView> createState() => _SignupViewState();
 }
 
-class _SignupViewState extends State<SignupView> {
+class _SignupViewState extends ConsumerState<SignupView> {
 
   //auth service
   final authService=AuthService();
+  final _userName=TextEditingController();
+  final _lastName=TextEditingController();
   final _emilController=TextEditingController();
   final _passwordController=TextEditingController();
   //final _confirmPassController=TextEditingController();
 
   //attempt signup
   void signUp() async{
+    final username=_userName.text;
+    final lastname=_lastName.text;
     final email=_emilController.text;
     final password=_passwordController.text;
     //final confirmPass=_confirmPassController.text;
@@ -31,7 +39,32 @@ class _SignupViewState extends State<SignupView> {
     //  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Password don't match")));}
 
     try{
-      await authService.signUpWithEmailPassword(email, password);
+      final response = await authService.signUpWithEmailPassword(email, password);
+
+      final user =response.user;
+      final userId=user?.id; //this gets the user id
+
+      if(userId != null){
+        //insert user data into profiles table
+        await Supabase.instance.client.from('profiles').insert({
+          'id':userId,
+          'username':username,
+          'lastname':lastname,
+          'email':email,
+
+        });
+        ref.read(userProvider.notifier).updateUser(username: username, lastName: lastname);
+
+        print("user profile created successfully!");
+
+      }
+
+      //Navigate to home page;
+      if(mounted){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeView()));
+      }
+
+
     }catch(e){
       if(mounted){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Error: $e")));
@@ -80,11 +113,11 @@ class _SignupViewState extends State<SignupView> {
                 SizedBox(
                   height: media.width * 0.05,
                 ),
-               RoundTextfield(controller: controller, hintText: "Name", icon: "assets/img/Profile.png"),
+               RoundTextfield(controller: _userName, hintText: "Name", icon: "assets/img/Profile.png"),
                 SizedBox(
                   height: media.width * 0.05,
                 ),
-                RoundTextfield(controller: controller, hintText: "Last Name", icon: "assets/img/Profile.png"),
+                RoundTextfield(controller: _lastName, hintText: "Last Name", icon: "assets/img/Profile.png"),
                 SizedBox(
                   height: media.width * 0.05,
                 ),

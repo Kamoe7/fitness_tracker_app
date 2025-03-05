@@ -1,4 +1,5 @@
 import 'package:fitness_tracker/common_widget/tab_button.dart';
+import 'package:fitness_tracker/view/Meal_planner/meal_planner.dart';
 import 'package:fitness_tracker/view/home/blank_view.dart';
 import 'package:fitness_tracker/view/home/home_view.dart';
 import 'package:fitness_tracker/view/profile/profile_view.dart';
@@ -57,7 +58,7 @@ class _MainTabViewState extends State<MainTabView> {
 
             }),
             TabButton(icon: "assets/img/Activity.png", selectIcon: "assets/img/activity_tab_select.png", isActive: selectTab==1, onTap: (){
-              currentTab=BlankView();
+              currentTab=MealPlanner();
 
 
                 setState(() { selectTab=1;});

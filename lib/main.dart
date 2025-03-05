@@ -1,16 +1,21 @@
 import 'package:fitness_tracker/common/color_extension.dart';
-import 'package:fitness_tracker/view/home/home_view.dart';
-import 'package:fitness_tracker/view/home/notification_view.dart';
+import 'package:fitness_tracker/view/Meal_planner/food_info_details_view.dart';
+import 'package:fitness_tracker/view/Meal_planner/meal_food_details_view.dart';
+import 'package:fitness_tracker/view/Meal_planner/meal_planner.dart';
+import 'package:fitness_tracker/view/Sleep_Tracker/sleep_add_alarm_view.dart';
+import 'package:fitness_tracker/view/Sleep_Tracker/sleep_schedule_view.dart';
+import 'package:fitness_tracker/view/Sleep_Tracker/sleep_tracker_view.dart';
 import 'package:fitness_tracker/view/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async  {
+ void main() async  {
   await Supabase.initialize(
       url: "https://auhzqeuqmlilqdlcdjuf.supabase.co",
        anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1aHpxZXVxbWxpbHFkbGNkanVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk2MzA2MzgsImV4cCI6MjA1NTIwNjYzOH0.svCTeLgQDM3qkkeJh53aIb6-Jf_7sPbrVNv5DGtwaSo"
       );
-  
+
   runApp(const MyApp());
 }
 
@@ -20,7 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ProviderScope(
+        child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fitness Demo',
       theme: ThemeData(
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins"
       ),
       home: const StartedView(),
-    );
+    ));
   }
 }
 

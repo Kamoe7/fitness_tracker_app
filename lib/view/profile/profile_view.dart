@@ -176,7 +176,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   return SizedBox();
                                 },
 
-                              onTap: (b) => setState(() => positive = !positive),
+                              onTap: () => setState(() => positive = !positive),
                               iconsTappable: false,
                               wrapperBuilder: (context,global,child){
                                   return Stack(

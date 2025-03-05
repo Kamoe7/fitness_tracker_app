@@ -247,10 +247,10 @@ class _ActivityTrackerViewState extends State<ActivityTrackerView> {
     ),
     titlesData: FlTitlesData(
     show: true,
-    rightTitles: const AxisTitles(
+    rightTitles:  AxisTitles(
     sideTitles: SideTitles(showTitles: false),
     ),
-    topTitles: const AxisTitles(
+    topTitles: AxisTitles(
     sideTitles: SideTitles(showTitles: false),
     ),
     bottomTitles: AxisTitles(
@@ -260,7 +260,7 @@ class _ActivityTrackerViewState extends State<ActivityTrackerView> {
     reservedSize: 38,
     ),
     ),
-    leftTitles: const AxisTitles(
+    leftTitles: AxisTitles(
     sideTitles: SideTitles(
     showTitles: false,
     ),
@@ -270,7 +270,7 @@ class _ActivityTrackerViewState extends State<ActivityTrackerView> {
     show: false,
     ),
     barGroups: showingGroups(),
-    gridData: const FlGridData(show: false),
+    gridData:  FlGridData(show: false),
     ),
 
                 ),

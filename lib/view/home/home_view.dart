@@ -1,23 +1,26 @@
 import 'package:dotted_dashed_line/dotted_dashed_line.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/workout_view.dart';
+import 'package:fitness_tracker/riverpod/provider.dart';
+import 'package:fitness_tracker/view/Sleep_Tracker/sleep_tracker_view.dart';
 import 'package:fitness_tracker/view/home/activity_tracker_view.dart';
 import 'package:fitness_tracker/view/home/notification_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_animation_progress_bar/simple_animation_progress_bar.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 import '../../common/color_extension.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  ConsumerState<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends ConsumerState<HomeView> {
   List<int> showingTooltipOnSpots = [21];
 
 
@@ -88,6 +91,9 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user=ref.watch(userProvider);
+
     var media = MediaQuery.of(context).size;
     final lineBarsData = [
       LineChartBarData(
@@ -125,7 +131,10 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Welcome Back",style: TextStyle(color: TColor.gray,fontSize: 12),),
-                    Text("Sagar Susling",style: TextStyle(color: TColor.black,fontSize: 20,fontWeight: FontWeight.w700),)
+                    Text(
+                      "${user.username} ${user.lastname}"
+
+                    ,style: TextStyle(color: TColor.black,fontSize: 20,fontWeight: FontWeight.w700),)
                   ],
                 ),
                 IconButton(onPressed: (){
@@ -300,7 +309,7 @@ class _HomeViewState extends State<HomeView> {
                 (LineChartBarData barData, List<int> spotIndexes) {
               return spotIndexes.map((index) {
                 return TouchedSpotIndicatorData(
-                  const FlLine(
+                   FlLine(
                     color: Colors.red,
                   ),
                   FlDotData(
@@ -341,7 +350,7 @@ class _HomeViewState extends State<HomeView> {
                 show: false,
                         ),
               
-                      gridData: const FlGridData(show: false),
+                      gridData:  FlGridData(show: false),
                       borderData: FlBorderData(
                         show: true,
                         border: Border.all(
@@ -523,8 +532,13 @@ class _HomeViewState extends State<HomeView> {
                                 fontWeight: FontWeight.w700
                               ),),
                             ),
+
                             const Spacer(),
-                            Image.asset("assets/img/sleep_grap.png",width: double.maxFinite,fit: BoxFit.fitWidth,)
+                            InkWell(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder:(context)=>SleepTrackerView()));
+                                },
+                                child: Image.asset("assets/img/sleep_grap.png",width: double.maxFinite,fit: BoxFit.fitWidth,)),
                           ],
                         ),
 
@@ -695,7 +709,7 @@ class _HomeViewState extends State<HomeView> {
                               (LineChartBarData barData, List<int> spotIndexes) {
                             return spotIndexes.map((index) {
                               return TouchedSpotIndicatorData(
-                                const FlLine(
+                                 FlLine(
                                   color: Colors.red,
                                 ),
                                 FlDotData(
@@ -859,7 +873,7 @@ class _HomeViewState extends State<HomeView> {
     gradient: LinearGradient(colors: [TColor.primaryColor2.withOpacity(0.5),TColor.primaryColor1.withOpacity(0.5)]),
     barWidth: 4,
     isStrokeCapRound: true,
-    dotData: const FlDotData(show: false),
+    dotData:  FlDotData(show: false),
     belowBarData: BarAreaData(show: false),
     spots: const [
       FlSpot(1, 35),
@@ -877,7 +891,7 @@ class _HomeViewState extends State<HomeView> {
     gradient: LinearGradient(colors: [TColor.secondaryColor2.withOpacity(0.5),TColor.secondaryColor1.withOpacity(0.5)]),
     barWidth: 4,
     isStrokeCapRound: true,
-    dotData: const FlDotData(show: false),
+    dotData:  FlDotData(show: false),
     belowBarData: BarAreaData(
       show: false,
     ),
