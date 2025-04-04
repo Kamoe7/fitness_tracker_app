@@ -22,6 +22,12 @@ class HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<HomeView> {
   List<int> showingTooltipOnSpots = [21];
+  //
+  // void bmiFunction(WidgetRef ref){
+  //   final userData=ref.watch(userDataProvider);
+  //   final data=userData.value;
+  //
+  // }
 
 
   List lastWorkoutArr = [
@@ -91,6 +97,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+
 
     final user=ref.watch(userProvider);
 
@@ -839,7 +846,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               value: 25,
               title: '',
               radius: 50,
-              badgeWidget: Text("20.1",style: TextStyle(color:Colors.white,fontSize: 12,fontWeight: FontWeight.w700),),
+              badgeWidget: Text("20.1",style: TextStyle(color:Colors.white,fontSize: 12,fontWeight: FontWeight.w700),),//value to change the BMI
               titlePositionPercentageOffset: 0.55,
             );
           case 1:

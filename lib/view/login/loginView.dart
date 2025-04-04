@@ -2,7 +2,7 @@ import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
 import 'package:fitness_tracker/riverpod/provider.dart';
-import 'package:fitness_tracker/view/login/CompleteProfileView.dart';
+import 'package:fitness_tracker/view/main_tab/main_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -62,7 +62,7 @@ class _LoginviewState extends ConsumerState<Loginview> {
       print('current Session: $session');
 
       if(session!=null){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>CompleteProfileView()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>MainTabView()));
       }
       else{
         print("no session after login");

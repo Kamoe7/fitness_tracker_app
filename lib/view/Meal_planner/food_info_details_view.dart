@@ -1,20 +1,23 @@
 import 'package:fitness_tracker/common_widget/food_details_step_row.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
+import 'package:fitness_tracker/riverpod/insert_into_meal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:readmore/readmore.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../common/color_extension.dart';
 
-class FoodInfoDetailsView extends StatefulWidget {
+class FoodInfoDetailsView extends ConsumerStatefulWidget {
   final Map mObj;
   final Map dObj;
   const FoodInfoDetailsView({super.key,required this.dObj,required this.mObj});
 
   @override
-  State<FoodInfoDetailsView> createState() => _FoodInfoDetailsViewState();
+  ConsumerState<FoodInfoDetailsView> createState() => _FoodInfoDetailsViewState();
 }
 
-class _FoodInfoDetailsViewState extends State<FoodInfoDetailsView> {
+class _FoodInfoDetailsViewState extends ConsumerState<FoodInfoDetailsView> {
 
   List nutritionArr = [
     {"image": "assets/img/burn.png", "title": "180kCal"},
@@ -395,7 +398,32 @@ class _FoodInfoDetailsViewState extends State<FoodInfoDetailsView> {
                     Padding(padding: EdgeInsets.symmetric(horizontal: 15),
                     child: RoundGradientButton(title:
                     "Add to ${widget.mObj["name"]} Meal", //widget.mObj to get breakfast,lunch etc as it has describe in mealfooddetailsviews
-                        onPressed:(){}),)
+                        onPressed:(){
+                      try {
+                        final imageName=widget.dObj['b_image'];
+                        final imagePath='user1/$imageName';
+                        final imageUrl=Supabase.instance.client.storage
+                        .from('mealsimage')
+                        .getPublicUrl(imagePath);
+
+
+
+                        ref.read(insertMealProvider).insertMeal(
+                            name:" ${widget.dObj['name']}",
+                            mealType: "${widget.mObj['name']}",
+                            calories: double.parse("${widget.dObj['calories']}"),
+                            protein: double.parse("${widget.dObj['protein']}"),
+                            carbs: double.parse("${widget.dObj['carbs']}"),
+                            fat: double.parse("${widget.dObj['fat']}"),
+                            image: imageUrl
+
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Food added to ${widget.mObj['name']}")));
+                      }
+                      catch(e){
+                        print('$e');
+                      }
+                        }),)
                   ],
                   ))
                 ],

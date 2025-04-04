@@ -15,7 +15,7 @@ class SleepScheduleView extends StatefulWidget {
 }
 
 class _SleepScheduleViewState extends State<SleepScheduleView> {
-  CalendarAgendaController _calendarAgendaController=CalendarAgendaController();
+  final CalendarAgendaController _calendarAgendaController=CalendarAgendaController();
   late DateTime _selectedDateAppBar;
 
   List todaySleepArr = [
@@ -43,6 +43,7 @@ class _SleepScheduleViewState extends State<SleepScheduleView> {
     _selectedDateAppBar =DateTime.now();
   }
 
+  @override
   Widget build(BuildContext context) {
     var media=MediaQuery.of(context).size;
 

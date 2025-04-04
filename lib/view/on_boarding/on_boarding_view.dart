@@ -48,7 +48,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       "image": "assets/img/on_3.png",
     },
     {
-      "title": "Improve Sleep /n Quality",
+      "title": "Improve Sleep \n Quality",
       "about":
           "Improve the quality of your sleep with us good quality sleep can bring a good mood in the morning",
       "image": "assets/img/on_4.png",

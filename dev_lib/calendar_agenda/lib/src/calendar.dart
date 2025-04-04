@@ -1,14 +1,11 @@
-import 'dart:convert';
 
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'fullcalendar.dart';
-import 'typedata.dart';
 
 class CalendarAgenda extends StatefulWidget implements PreferredSizeWidget {
   final CalendarAgendaController? controller;
@@ -93,12 +90,12 @@ class CalendarAgenda extends StatefulWidget implements PreferredSizeWidget {
   CalendarAgendaState createState() => CalendarAgendaState();
 
   @override
-  Size get preferredSize => new Size.fromHeight(250.0);
+  Size get preferredSize => Size.fromHeight(250.0);
 }
 
 class CalendarAgendaState extends State<CalendarAgenda>
     with TickerProviderStateMixin {
-  ItemScrollController _scrollController = new ItemScrollController();
+  final ItemScrollController _scrollController = ItemScrollController();
 
   late Color backgroundColor;
   late double padding;
@@ -106,7 +103,7 @@ class CalendarAgendaState extends State<CalendarAgenda>
   late Widget training;
   late double _scrollAlignment;
 
-  List<String> _eventDates = [];
+  final List<String> _eventDates = [];
   List<DateTime> _dates = [];
   DateTime? _selectedDate;
   int? _daySelectedIndex;
@@ -275,7 +272,7 @@ class CalendarAgendaState extends State<CalendarAgenda>
       );
     }
 
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: widget.appbar ? 210 : 140.0,
       child: Stack(
@@ -290,7 +287,7 @@ class CalendarAgendaState extends State<CalendarAgenda>
           ),
           Positioned(
             top: widget.appbar ? 50.0 : 0.0,
-            child:  Container(
+            child:  SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -376,7 +373,7 @@ class CalendarAgendaState extends State<CalendarAgenda>
         } else {
           height = (MediaQuery.of(context).size.height - 100.0);
         }
-        return Container(
+        return SizedBox(
           height: widget.fullCalendarScroll == FullCalendarScroll.vertical
               ? height
               : (MediaQuery.of(context).size.height / 7) * 4.3,

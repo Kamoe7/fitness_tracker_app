@@ -32,7 +32,7 @@ class PopularMeal extends StatelessWidget {
               ),
                   ),
               Text(
-                "${pObj["size"]} | ${pObj["time"]} | ${pObj["kcal"]}",
+                "${pObj["size"]} | ${pObj["time"]} | ${pObj["calories"]}",
                 style: TextStyle(color: TColor.gray,fontSize: 12),
               )
             ],

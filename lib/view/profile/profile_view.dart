@@ -1,19 +1,23 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:fitness_tracker/riverpod/bmi_provider.dart';
+import 'package:fitness_tracker/riverpod/provider.dart';
 import 'package:fitness_tracker/view/profile/height_weight_Age_views.dart';
 import 'package:fitness_tracker/view/profile/setting_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/color_extension.dart';
 
-class ProfileView extends StatefulWidget {
+class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
 
   @override
-  State<ProfileView> createState() => _ProfileViewState();
+  ConsumerState<ProfileView> createState() => _ProfileViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
+class _ProfileViewState extends ConsumerState<ProfileView> {
   bool positive=false;
+
 
   List accountArr = [
     {"image": "assets/img/p_personal.png", "name": "Personal Data", "tag": "1"},
@@ -38,6 +42,23 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final userData = ref.watch(userDataProvider);
+
+    if(userData.isLoading){
+      return Center(child: CircularProgressIndicator());
+    }
+    if(userData.hasError){
+      return Text("Error: ${userData.error}");
+    }
+
+
+    final data = userData.value;
+    if(data==null){
+      return Center(child: Text("No user data available"));
+    }
+
+
+    final user=ref.watch(userProvider);
     var media=MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: TColor.white,
@@ -68,7 +89,7 @@ class _ProfileViewState extends State<ProfileView> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Sagar Susling",style: TextStyle(color: TColor.black,fontSize: 15,fontWeight: FontWeight.w700),),
+              Text("${user.username} ${user.lastname}",style: TextStyle(color: TColor.black,fontSize: 15,fontWeight: FontWeight.w700),),
               Text("Lose a Fat Program",style: TextStyle(color: TColor.gray,fontSize: 12),)
             ],
           )
@@ -95,11 +116,13 @@ class _ProfileViewState extends State<ProfileView> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
                           children: [
-                           HeightWeightAgeViews(text: "180cm", string: "Height"),
+
+                            //make change here
+                           HeightWeightAgeViews(text: "${data['height']} cm", string: "Height"),
                             SizedBox(width: media.width*0.05,),
-                            HeightWeightAgeViews(text: "78kg", string: "Weight"),
+                            HeightWeightAgeViews(text: "${data['weight']} kg ", string: "Weight"),
                             SizedBox(width: media.width*0.05,),
-                            HeightWeightAgeViews(text: "23yo", string: "Age")
+                            HeightWeightAgeViews(text: "${data['age']} yrs", string: "Age")
                           ],
                         ),
                       ),
@@ -241,8 +264,8 @@ class _ProfileViewState extends State<ProfileView> {
                                 shrinkWrap: true,
                                 itemCount: otherArr.length,
                                 itemBuilder: (context,index){
-                                var Aobj=otherArr[index];
-                                return SettingRow(icon: Aobj['image'], title: Aobj['name'], onPressed: (){});
+                                var aObj=otherArr[index];
+                                return SettingRow(icon: aObj['image'], title: aObj['name'], onPressed: (){});
                                 })
                           ],
                         )

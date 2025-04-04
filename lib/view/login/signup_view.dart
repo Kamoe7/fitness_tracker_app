@@ -2,7 +2,7 @@ import 'package:fitness_tracker/auth/auth_services.dart';
 import 'package:fitness_tracker/common_widget/round_gradient_button.dart';
 import 'package:fitness_tracker/common_widget/round_textfield.dart';
 import 'package:fitness_tracker/riverpod/provider.dart';
-import 'package:fitness_tracker/view/home/home_view.dart';
+import 'package:fitness_tracker/view/login/CompleteProfileView.dart';
 import 'package:fitness_tracker/view/login/loginView.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_tracker/common/color_extension.dart';
@@ -61,7 +61,7 @@ class _SignupViewState extends ConsumerState<SignupView> {
 
       //Navigate to home page;
       if(mounted){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeView()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CompleteProfileView()));
       }
 
 
@@ -173,11 +173,11 @@ class _SignupViewState extends ConsumerState<SignupView> {
 
 
                       GestureDetector(onTap: (){},
-                      child: Image.asset('assets/img/google.png')),
+                      child: Image.asset('assets/img/google.png',height: 50,)),
                       SizedBox(width: 50,),
 
                       GestureDetector(onTap: (){},
-                      child: Image.asset('assets/img/fb.png'),)
+                      child: Image.asset('assets/img/fb.png',height: 50,),)
                     ],
                   ),
                 SizedBox(height: media.width*0.04,),

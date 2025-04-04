@@ -1,10 +1,6 @@
+import 'package:fitness_tracker/OPEN_AI/chatbot_setup.dart';
 import 'package:fitness_tracker/common/color_extension.dart';
-import 'package:fitness_tracker/view/Meal_planner/food_info_details_view.dart';
-import 'package:fitness_tracker/view/Meal_planner/meal_food_details_view.dart';
-import 'package:fitness_tracker/view/Meal_planner/meal_planner.dart';
-import 'package:fitness_tracker/view/Sleep_Tracker/sleep_add_alarm_view.dart';
-import 'package:fitness_tracker/view/Sleep_Tracker/sleep_schedule_view.dart';
-import 'package:fitness_tracker/view/Sleep_Tracker/sleep_tracker_view.dart';
+import 'package:fitness_tracker/togerther_ai/chatMessageAI_UI.dart';
 import 'package:fitness_tracker/view/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +32,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins"
       ),
       home: const StartedView(),
+         // home:const ChatmessageaiUi()
     ));
   }
 }
