@@ -1,0 +1,1 @@
+const OPEN_AI_KEY="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";

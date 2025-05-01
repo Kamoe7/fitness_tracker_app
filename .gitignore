@@ -22,6 +22,9 @@ migrate_working_dir/
 #.vscode/
 
 # Flutter/Dart/Pub related
+/lib/auth/supbase_api.dart
+/lib/togerther_ai/api_key_together_ai.dart
+/lib/OPEN_AI/API.dart
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
