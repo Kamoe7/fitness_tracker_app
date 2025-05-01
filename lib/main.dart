@@ -1,11 +1,13 @@
 import 'package:fitness_tracker/OPEN_AI/chatbot_setup.dart';
-import 'package:fitness_tracker/auth/supbase_api.dart';
+
 import 'package:fitness_tracker/common/color_extension.dart';
-import 'package:fitness_tracker/togerther_ai/chatMessageAI_UI.dart';
+
 import 'package:fitness_tracker/view/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'auth/supabase_api_key.dart';
 
  void main() async  {
   await Supabase.initialize(

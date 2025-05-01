@@ -15,16 +15,18 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-
+#maybe apikeys or maybe your bank acc
+.env
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
 
 # Flutter/Dart/Pub related
-/lib/auth/supbase_api.dart
-/lib/togerther_ai/api_key_together_ai.dart
-/lib/OPEN_AI/API.dart
+lib/auth/supabase_api_key.dart
+lib/togerther_ai/api_key_together_ai.dart
+lib/OPEN_AI/API.dart
+lib/togerther_ai/api_key_together.dart
 **/doc/api/
 **/ios/Flutter/.last_build_id
 

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-import 'package:fitness_tracker/togerther_ai/api_key_together_ai.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'api_key_together.dart';
 
 Future<String> togetherAIChat(String prompt) async{
 
