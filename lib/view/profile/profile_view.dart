@@ -1,12 +1,15 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:fitness_tracker/api_delete_user/delete_user.dart';
 import 'package:fitness_tracker/riverpod/bmi_provider.dart';
 import 'package:fitness_tracker/riverpod/provider.dart';
 import 'package:fitness_tracker/view/profile/height_weight_Age_views.dart';
 import 'package:fitness_tracker/view/profile/setting_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../common/color_extension.dart';
+import '../login/loginView.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
@@ -38,7 +41,32 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
     {"image":"assets/img/p_contact.png","name":"Contact Us","tag":"5"},
     {"image":"assets/img/p_privacy.png","name":"Privacy Policy","tag":"6"},
     {"image":"assets/img/p_setting.png","name":"Setting","tag":"7"},
+    {"image":"assets/img/LOG.png","name":"Logout","tag":"8"},
   ];
+
+  void _showLogoutDialog(BuildContext context){
+    showDialog(context: context,
+        builder:(context)=>AlertDialog(
+          title: const Text("Logout"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: [
+            TextButton(onPressed: ()=>Navigator.pop(context), child: const Text("Cancel")),
+            TextButton(
+                onPressed: () async {
+                 // Navigator.pop(context); //close dialog
+
+                  await Supabase.instance.client.auth.signOut();
+                  if(context.mounted){
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context)=>Loginview()),
+                        (route)=>false); //remove all the previous route
+                  }
+                } ,
+                child: const Text("Logout"))
+          ],
+        ));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +293,15 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                                 itemCount: otherArr.length,
                                 itemBuilder: (context,index){
                                 var aObj=otherArr[index];
-                                return SettingRow(icon: aObj['image'], title: aObj['name'], onPressed: (){});
+                                return SettingRow(icon: aObj['image'], title: aObj['name'], onPressed: (){
+                                      final tag=aObj['tag'];
+                                      if(tag =='8'){
+                                        _showLogoutDialog(context);
+                                        //showDeleteAccountDialog(context);
+                                      }else if(tag=='7'){
+                                        print("you pressed setting");
+                                      }
+                                });
                                 })
                           ],
                         )

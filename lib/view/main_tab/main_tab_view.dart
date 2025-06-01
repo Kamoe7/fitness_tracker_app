@@ -53,7 +53,7 @@ class _MainTabViewState extends State<MainTabView> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            TabButton(icon: "assets/img/Home.png", selectIcon: "assets/img/Home-Active.png", isActive: selectTab==0, onTap: (){
+            TabButton(icon: "assets/img/home_non_color.png", selectIcon: "assets/img/home_color.png", isActive: selectTab==0, onTap: (){
               currentTab=HomeView();
 
 
@@ -62,14 +62,14 @@ class _MainTabViewState extends State<MainTabView> {
               });
 
             }),
-            TabButton(icon: "assets/img/Activity.png", selectIcon: "assets/img/activity_tab_select.png", isActive: selectTab==1, onTap: (){
+            TabButton(icon: "assets/img/dinner_non_color.png", selectIcon: "assets/img/dinner_color.png", isActive: selectTab==1, onTap: (){
               currentTab=MealPlanner();
 
 
                 setState(() { selectTab=1;});
               }
             ),
-            TabButton(icon: "assets/img/Camera.png", selectIcon: "assets/img/Camera-select.png", isActive: selectTab==2, onTap: (){
+            TabButton(icon: "assets/img/ai_no_color.png", selectIcon: "assets/img/ai_color.png", isActive: selectTab==2, onTap: (){
               currentTab=ChatmessageaiUi();
 
 
@@ -78,7 +78,7 @@ class _MainTabViewState extends State<MainTabView> {
                 });
               }
             ),
-            TabButton(icon: "assets/img/Profile.png", selectIcon: "assets/img/Profile-select.png", isActive: selectTab==3, onTap: (){
+            TabButton(icon: "assets/img/user_non_color.png", selectIcon: "assets/img/user_color.png", isActive: selectTab==3, onTap: (){
               currentTab=ProfileView();
 
                 setState(() {selectTab=3;

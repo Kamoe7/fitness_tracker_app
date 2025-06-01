@@ -73,7 +73,7 @@ class _SleepScheduleViewState extends State<SleepScheduleView> {
               fit: BoxFit.contain,),
           ),
         ),
-        title: Text("Meal Schedule",
+        title: Text("Sleep Schedule",
           style: TextStyle(
               color: TColor.black,
               fontSize: 20,

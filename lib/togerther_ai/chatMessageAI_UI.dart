@@ -39,7 +39,7 @@ class _ChatbotSetupState extends State<ChatmessageaiUi> {
     _typingTimer = Timer.periodic(Duration(milliseconds: 500), (timer) {
       setState(() {
         _dotCount = (_dotCount % 3) + 1;
-        _typingText = "ChatGPT is typing" + "." * _dotCount;
+        _typingText = "DeepSeek-R1 is typing" + "." * _dotCount;
       });
     });
   }
@@ -47,7 +47,7 @@ class _ChatbotSetupState extends State<ChatmessageaiUi> {
   void stopTypingAnimation() {
     _typingTimer?.cancel();
     _dotCount = 1;
-    _typingText = "ChatGPT is typing.";
+    _typingText = "DeepSeek-R1 is typing.";
   }
 
   Future<void> handleSend(ChatMessage message) async{
